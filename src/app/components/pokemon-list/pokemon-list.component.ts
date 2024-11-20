@@ -35,7 +35,7 @@ export class PokemonListComponent implements OnInit {
   }
 
   public getFavs() {
-    const favs = localStorage.getItem('favs');
+    const favs = localStorage.getItem('favorites');
     if (!favs) return [];
     return JSON.parse(favs);
   }

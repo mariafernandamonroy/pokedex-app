@@ -24,5 +24,6 @@ export class PokeService {
     let favorites = JSON.parse(favs || '[]');
     favorites.push(pokemon);
     localStorage.setItem('favorites', JSON.stringify(favorites));
+    //console.log(localStorage.getItem('favorites'));
   }
 }

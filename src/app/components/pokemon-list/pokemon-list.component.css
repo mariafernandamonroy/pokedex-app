@@ -17,6 +17,27 @@
   opacity: 0.5;
 }
 
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  padding: 10px;
+  flex: 1 1 20%;
+}
+
+li>a {
+  text-decoration: none;
+  /* background-color: rgb(168, 168, 168); */
+  border-radius: 10px;
+  color: black;
+  padding: 8px;
+}
+
 button {
   padding: 10px;
   background-color: #007bff;
@@ -24,6 +45,12 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+button:active {
+  transform: scale(0.95);
+  background-color: #5780b6;
 }
 
 button:disabled {

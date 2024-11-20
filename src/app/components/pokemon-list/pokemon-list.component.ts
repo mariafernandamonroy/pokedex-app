@@ -90,4 +90,8 @@ export class PokemonListComponent implements OnInit {
   deleteFavorites(): void {
     this.pokeService.deleteFavorites();
   }
+
+  deleteFavorite(pokemon:any) :void {
+    this.pokeService.deleteFromFavorites(pokemon);
+  }
 }

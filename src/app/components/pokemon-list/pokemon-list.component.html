@@ -33,6 +33,7 @@
       <a [routerLink]="getRouterLink(pokemon.name)">{{
         pokemon.name | titlecase
       }}</a>
+      <button (click)="deleteFavorite(pokemon)">🗑️</button>
     </li>
   </ul>
 </div>

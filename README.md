@@ -11,3 +11,4 @@ Due to the public nature of forks we suggest you duplicate the repo rather then 
 You will need to create your own repo e.g. `[your_github_username]/pokedex-app` and then clone this repo `luidcrua/pokedex-app` and push the code into your new one. You can follow the steps for doing this here: https://help.github.com/articles/duplicating-a-repository/
 
 
+# pokedex-app

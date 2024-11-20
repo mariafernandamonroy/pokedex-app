@@ -29,8 +29,19 @@ export class PokeService {
   saveFavorite(pokemon: any): void {
     let favs = localStorage.getItem('favorites');
     let favorites = JSON.parse(favs || '[]');
-    favorites.push(pokemon);
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    const isAlreadyFavorite:boolean = favorites.some((fav: any) => {
+      console.log('fav.name:', fav.name, 'pokemon-name:', pokemon.name);
+      return fav.name == pokemon.name;
+    });
+    console.log(isAlreadyFavorite, pokemon.name);
+    if (!isAlreadyFavorite) {
+      favorites.push(pokemon);
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      console.log(`${pokemon.name} añadido a favoritos.`);
+    } else {
+      console.log(`${pokemon.name} ya está en favoritos.`);
+    }
+
     //console.log(localStorage.getItem('favorites'));
   }
 
@@ -46,5 +57,4 @@ export class PokeService {
   deleteFavorites(): void {
     localStorage.clear();
   }
-
 }

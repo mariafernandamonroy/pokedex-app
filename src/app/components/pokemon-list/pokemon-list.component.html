@@ -3,7 +3,7 @@
   <button (click)="searchPokemon()">Search</button>
 </div>
 <ul>
-  <li *ngFor="let pokemon of pokemonList">
+  <li *ngFor="let pokemon of pokemonList()">
     <a [routerLink]="getRouterLink(pokemon.name)">{{
       pokemon.name | titlecase
     }}</a>

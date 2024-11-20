@@ -14,6 +14,11 @@ import { FormsModule } from '@angular/forms';
 export class PokemonListComponent implements OnInit {
   pokemonList = signal<any[]>([]);
   searchQuery = '';
+  offset: number = 0;
+  limit: number = 20;
+  totalCount: number = 0;
+  totalPages: number = 0;
+  currentPage: number = 1;
 
   constructor(protected pokeService: PokeService) {}
 
@@ -25,13 +30,42 @@ export class PokemonListComponent implements OnInit {
     return `/pokemon/${name}`;
   }
 
+  // loadPokemon(): void {
+  //   this.pokeService.getPokemonList(this.offset, this.limit).subscribe({
+  //     next: (data) => {
+  //       this.pokemonList.set([...this.pokemonList(), ...data.results]);
+
+  //       this.offset += this.limit;
+  //     },
+  //     error: (err) => console.error('Failed to load Pokémon', err),
+  //   });
+  // }
+
   loadPokemon(): void {
-    this.pokeService.getPokemonList().subscribe({
+    this.pokeService.getPokemonList(this.offset, this.limit).subscribe({
       next: (data) => {
-        this.pokemonList.set([...this.pokemonList(), ...data.results]);
+        this.totalCount = data.count;
+        this.totalPages = Math.ceil(this.totalCount / this.limit);
+        this.pokemonList.set(data.results);
       },
       error: (err) => console.error('Failed to load Pokémon', err),
     });
+  }
+
+  loadMorePokemons(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.offset = this.limit * (this.currentPage - 1);
+      this.loadPokemon();
+    }
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.offset = this.limit * (page - 1);
+      this.loadPokemon();
+    }
   }
 
   public getFavs() {
@@ -51,5 +85,9 @@ export class PokemonListComponent implements OnInit {
           error: (err) => console.error('Failed to search Pokémon', err),
         });
     }
+  }
+
+  deleteFavorites(): void {
+    this.pokeService.deleteFavorites();
   }
 }

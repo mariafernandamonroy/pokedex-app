@@ -10,9 +10,24 @@
   </li>
 </ul>
 <!-- TODO implement pagination -->
-<button>Load More</button>
+<div class="pagination-controls">
+  <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage <= 1">
+    Previous
+  </button>
+  <button
+    (click)="goToPage(currentPage + 1)"
+    [disabled]="currentPage >= totalPages"
+  >
+    Next
+  </button>
+</div>
+
+<button (click)="loadMorePokemons()" [disabled]="currentPage >= totalPages">
+  Load More
+</button>
 <div>
   Favorites:
+  <button (click)="deleteFavorites()">delete all</button>
   <ul>
     <li *ngFor="let pokemon of getFavs()">
       <a [routerLink]="getRouterLink(pokemon.name)">{{

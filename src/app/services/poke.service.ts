@@ -12,7 +12,14 @@ export class PokeService {
   http = inject(HttpClient);
 
   getPokemonList(offset = 0, limit = 20): Observable<any> {
-    return this.http.get(this.apiUrl + '?offset=' + offset + '&limit=' + limit);
+    return this.http
+      .get(this.apiUrl + '?offset=' + offset + '&limit=' + limit)
+      .pipe(
+        catchError((error) => {
+          console.error('Error ocurreg while fetching Pokemon list.', error);
+          return of({ results: [] });
+        })
+      );
   }
 
   getPokemonDetails(name: string): Observable<any> {
@@ -26,4 +33,18 @@ export class PokeService {
     localStorage.setItem('favorites', JSON.stringify(favorites));
     //console.log(localStorage.getItem('favorites'));
   }
+
+  deleteFromFavorites(pokemonNameToRemove: any): void {
+    let favs = localStorage.getItem('favorites');
+    let favorites = JSON.parse(favs || '[]');
+    favorites = favorites.filter(
+      (pokemon: { name: string }) => pokemon.name !== pokemonNameToRemove.name
+    );
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }
+
+  deleteFavorites(): void {
+    localStorage.clear();
+  }
+
 }

@@ -31,4 +31,8 @@ export class PokemonDetailComponent implements OnInit {
   addFavorite(): void {
     this.pokeService.saveFavorite(this.pokemon);
   }
+
+  deleteFavorite() :void {
+    this.pokeService.deleteFromFavorites(this.pokemon);
+  }
 }
